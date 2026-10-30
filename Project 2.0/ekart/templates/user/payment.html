@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Demo Payment | Supermarket India{% endblock %}
+{% block extra_css %}
+<style>
+.demo-pay-wrap{max-width:760px;margin:auto}.demo-pay-brand{background:#13243a;color:white;border-radius:14px 14px 0 0;padding:22px}.demo-pay-panel{border:1px solid #e1e6ed;border-radius:0 0 14px 14px;padding:25px;background:#fff}.demo-badge{display:inline-block;background:#fff3cd;color:#795600;border:1px solid #ffe08a;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:.04em}.demo-pay-option{border:1px solid #e2e7ee;border-radius:10px;padding:14px;margin:12px 0}.demo-total{font-size:30px;font-weight:800;color:#198754}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container py-5">
+ <div class="demo-pay-wrap">
+  <div class="demo-pay-brand d-flex justify-content-between align-items-center flex-wrap gap-2">
+   <div><div class="h4 mb-1">Supermarket India <span class="small fw-normal">Pay</span></div><div class="small text-white-50">Educational checkout simulation</div></div>
+   <span class="demo-badge">DEMO • NOT A REAL GATEWAY</span>
+  </div>
+  <div class="demo-pay-panel shadow-sm">
+   <div class="d-flex justify-content-between align-items-start"><div><h3 class="fw-bold">Complete your payment</h3><p class="text-muted">This screen imitates a generic checkout layout for demonstration only.</p></div><i class="fa fa-lock fa-2x text-success"></i></div>
+   <div class="bg-light rounded p-3 my-3">
+    <div class="small text-muted">Amount payable</div><div class="demo-total">₹{{ total }}</div>
+    {% for product, qty, line_total in lines %}<div class="d-flex justify-content-between small mt-2"><span>{{ product.name }} × {{ qty }}</span><span>₹{{ line_total }}</span></div>{% endfor %}
+   </div>
+   {% if payment_method == 'COD' %}
+    <div class="demo-pay-option"><strong>Cash on Delivery selected</strong><p class="small text-muted mb-0">No online payment is required. Confirm the order below.</p></div>
+   {% elif payment_method == 'DEMO_UPI' %}
+    <div class="demo-pay-option"><strong><i class="fa fa-mobile me-2"></i>UPI demo payment</strong><p class="small text-muted mb-0">A simulated UPI payment. Do not enter a UPI PIN or scan a real payment QR.</p><div class="mt-3 p-3 bg-light rounded text-center"><div class="fs-2">▦</div><strong>DEMO QR CODE</strong><div class="small text-muted">No real payment request is generated.</div></div></div>
+   {% else %}
+    <div class="demo-pay-option"><strong><i class="fa fa-credit-card me-2"></i>Card demo payment</strong><p class="small text-muted mb-0">No card number, CVV, expiry date or other financial credentials are requested.</p><div class="form-control bg-light mt-3">•••• •••• •••• DEMO</div></div>
+   {% endif %}
+   <div class="alert alert-warning small mt-3"><strong>Important:</strong> This is not a bank, UPI app or real payment gateway. It does not contact a payment provider and cannot charge money.</div>
+   <form method="post">{% csrf_token %}
+    <button class="btn btn-success btn-lg w-100 mb-2" name="payment_action" value="success" type="submit">{% if payment_method == 'COD' %}Confirm Demo Order{% else %}Simulate Successful Payment{% endif %}</button>
+    <button class="btn btn-outline-danger w-100" name="payment_action" value="failure" type="submit">Simulate Payment Failure</button>
+   </form>
+   <a href="/checkout/" class="d-block text-center mt-3 small">← Back to checkout</a>
+  </div>
+ </div>
+</div>
+{% endblock %}

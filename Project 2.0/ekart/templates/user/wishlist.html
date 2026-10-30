@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}My Wishlist | Supermarket India{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <div><h2 class="fw-bold mb-1">My Wishlist ♡</h2><p class="text-muted mb-0">Products you saved for later.</p></div>
+    <a class="btn btn-outline-dark" href="/products/">Continue shopping</a>
+  </div>
+  {% for message in messages %}<div class="alert alert-info">{{ message }}</div>{% endfor %}
+  <div class="row g-3">
+    {% for product in wishlist_products %}
+    <div class="col-6 col-md-3">
+      <div class="card h-100 border-0 shadow-sm">
+        {% if product.ppic %}<img src="{{ product.ppic.url }}" class="card-img-top p-3" style="height:180px;object-fit:contain" alt="{{ product.name }}">{% endif %}
+        <div class="card-body d-flex flex-column">
+          <h6>{{ product.name }}</h6><strong class="text-success mb-3">₹{{ product.disprice }}</strong>
+          <a href="/user/process/?pid={{ product.id }}&amp;bn=cart" class="btn btn-success mt-auto mb-2">Add to Cart</a>
+          <form method="post">{% csrf_token %}<input type="hidden" name="product_id" value="{{ product.id }}"><button class="btn btn-outline-danger w-100" type="submit">Remove</button></form>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12"><div class="alert alert-info text-center p-5">Your wishlist is empty. Save products you like from the Products page.</div></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}My Orders & Tracking{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="fw-bold mb-4">My Orders & Product Tracking</h2>
+  {% for message in messages %}<div class="alert alert-success">{{ message }}</div>{% endfor %}
+  {% for order in orders %}
+  <div class="card border-0 shadow-sm p-3 p-md-4 mb-4">
+    <div class="d-flex flex-wrap justify-content-between gap-2">
+      <div><h5 class="mb-1">Order #{{ order.id }}</h5><small class="text-muted">Placed {{ order.created_at|date:'d M Y, h:i A' }}</small></div>
+      <div class="text-md-end"><span class="badge bg-success">{{ order.status }}</span><div class="fw-bold fs-5 mt-1">₹{{ order.total }}</div></div>
+    </div>
+    <hr>
+    {% for item in order.items.all %}
+      <div class="d-flex justify-content-between py-2"><span>{{ item.product.name }} × {{ item.quantity }}</span><strong>₹{% widthratio item.price 1 item.quantity %}</strong></div>
+    {% endfor %}
+    <p class="small mb-1"><strong>Payment:</strong> {{ order.get_payment_method_display|default:order.payment_method }} · {{ order.payment_status }}</p>
+    <p class="small text-muted mb-3">{{ order.tracking_note }}</p>
+    <h6>Tracking timeline</h6>
+    <div class="d-flex flex-wrap gap-2">
+      {% for stage in stages %}
+        <div class="rounded border p-2 small {% if stage == order.status %}bg-success text-white border-success fw-bold{% elif order.status == 'Delivered' or forloop.counter0 < order.order_progress %}bg-light border-success{% else %}text-muted{% endif %}">
+          {% if order.status == 'Delivered' or forloop.counter0 < order.order_progress %}✓ {% endif %}{{ stage }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="small text-muted mt-2">Order tracking is updated by the store administrator. For help, contact customer support.</div>
+  </div>
+  {% empty %}
+    <div class="alert alert-info">You have not purchased anything yet. <a href="/products/">Start shopping</a>.</div>
+  {% endfor %}
+</div>
+{% endblock %}

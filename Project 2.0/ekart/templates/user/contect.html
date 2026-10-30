@@ -1,0 +1,674 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Supermarket India{% endblock %}
+
+{% block content %}
+
+<style>
+    .contact-page {
+        background: #f5faf7;
+        color: #20372c;
+        overflow: hidden;
+    }
+
+    /* Animated Hero */
+    .contact-hero {
+        position: relative;
+        padding: 55px 20px;
+        background: linear-gradient(120deg, #064e3b, #087f5b, #10a66a);
+        color: white;
+        overflow: hidden;
+    }
+
+    .contact-hero::before,
+    .contact-hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .07);
+        animation: floatBubble 7s ease-in-out infinite;
+    }
+
+    .contact-hero::before {
+        width: 220px;
+        height: 220px;
+        top: -100px;
+        right: 8%;
+    }
+
+    .contact-hero::after {
+        width: 140px;
+        height: 140px;
+        bottom: -80px;
+        left: 10%;
+        animation-delay: 1.5s;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-title {
+        font-size: clamp(32px, 5vw, 50px);
+        font-weight: 850;
+    }
+
+    .hero-title span {
+        color: #ffcf40;
+    }
+
+    .hero-subtitle {
+        color: #e0f5e9;
+        line-height: 1.8;
+    }
+
+    .hero-icon {
+        font-size: 85px;
+        display: inline-block;
+        animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    /* Main cards */
+    .contact-main {
+        padding: 45px 0;
+    }
+
+    .contact-card {
+        height: 100%;
+        background: white;
+        border: 1px solid #e1eee5;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 28px rgba(23, 83, 49, .06);
+        transition: transform .3s, box-shadow .3s;
+    }
+
+    .contact-card:hover {
+        box-shadow: 0 15px 35px rgba(23, 83, 49, .12);
+    }
+
+    .contact-heading {
+        font-size: 27px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .contact-heading span {
+        color: #138754;
+    }
+
+    .heading-line {
+        height: 4px;
+        width: 60px;
+        background: #18a66a;
+        border-radius: 10px;
+        margin: 13px 0 25px;
+    }
+
+    .contact-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .contact-field {
+        width: 100%;
+        border: 1px solid #dce8df;
+        background: #fbfdfb;
+        padding: 13px 15px;
+        border-radius: 10px;
+        margin-bottom: 17px;
+        outline: none;
+        transition: border-color .25s, box-shadow .25s;
+    }
+
+    .contact-field:focus {
+        border-color: #15965c;
+        box-shadow: 0 0 0 4px rgba(21, 150, 92, .10);
+        background: white;
+    }
+
+    .contact-message {
+        min-height: 125px;
+        resize: vertical;
+    }
+
+    .send-btn {
+        background: linear-gradient(110deg, #ffc928, #ffad00);
+        color: #163e2b;
+        border: none;
+        padding: 13px 24px;
+        width: 100%;
+        border-radius: 10px;
+        font-weight: 800;
+        transition: transform .25s, box-shadow .25s;
+    }
+
+    .send-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px #ffbd2944;
+    }
+
+    .send-btn:disabled {
+        opacity: .7;
+        cursor: wait;
+    }
+
+    .contact-info-card {
+        background: linear-gradient(145deg, #ffffff, #eef9f1);
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 27px;
+    }
+
+    .info-icon {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 21px;
+        color: white;
+        background: #15965c;
+        box-shadow: 0 5px 12px #15965c30;
+    }
+
+    .info-item h5 {
+        font-size: 17px;
+        font-weight: 800;
+        margin: 2px 0 7px;
+        color: #12814e;
+    }
+
+    .info-item p {
+        color: #52665a;
+        line-height: 1.8;
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .info-item a {
+        color: #52665a;
+        text-decoration: none;
+    }
+
+    .info-item a:hover {
+        color: #138754;
+        text-decoration: underline;
+    }
+
+    /* Benefits */
+    .support-strip {
+        background: white;
+        border: 1px solid #e1eee5;
+        border-radius: 18px;
+        padding: 22px 12px;
+        margin-bottom: 35px;
+    }
+
+    .support-item {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .support-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: #e0f5e8;
+        color: #138754;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        transition: transform .3s;
+    }
+
+    .support-item:hover .support-icon {
+        transform: rotate(-8deg) scale(1.12);
+    }
+
+    .support-item strong {
+        display: block;
+        font-size: 14px;
+    }
+
+    .support-item small {
+        color: #738177;
+    }
+
+    /* Map */
+    .map-card {
+        background: white;
+        padding: 12px;
+        border: 1px solid #e1eee5;
+        border-radius: 18px;
+        margin-bottom: 40px;
+        box-shadow: 0 8px 24px #153d2510;
+    }
+
+    .map-card iframe {
+        width: 100%;
+        height: 350px;
+        border: 0;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .map-title {
+        padding: 10px 8px 15px;
+        font-weight: 800;
+    }
+
+    .map-title span {
+        color: #138754;
+    }
+
+    .contact-footer {
+        padding: 27px 15px;
+        background: #064e3b;
+        color: white;
+        text-align: center;
+    }
+
+    .contact-footer p {
+        margin: 0;
+        line-height: 1.8;
+    }
+
+    .success-message {
+        border-radius: 12px;
+        animation: fadeIn .5s ease;
+    }
+
+    @keyframes floatBubble {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(20px); }
+    }
+
+    @keyframes floatIcon {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 767px) {
+        .contact-hero {
+            padding: 40px 15px;
+        }
+
+        .hero-icon {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .contact-main {
+            padding: 25px 0;
+        }
+
+        .contact-card {
+            padding: 22px 18px;
+        }
+
+        .contact-heading {
+            font-size: 23px;
+        }
+
+        .map-card iframe {
+            height: 280px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .contact-hero::before,
+        .contact-hero::after,
+        .hero-icon {
+            animation: none;
+        }
+
+        * {
+            scroll-behavior: auto !important;
+            transition: none !important;
+        }
+    }
+</style>
+
+<div class="contact-page">
+
+    <!-- HERO SECTION -->
+    <section class="contact-hero">
+        <div class="container hero-content">
+            <div class="row align-items-center">
+
+                <div class="col-md-7 text-center text-md-start">
+                    <div class="fw-bold mb-3">
+                        🛒 Supermarket <span style="color:#ffcf40;">India</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Contact <span>Us</span>
+                    </h1>
+
+                    <p class="hero-subtitle mb-0">
+                        Have a question, feedback, or need help?
+                        <br>
+                        We'd love to hear from you!
+                    </p>
+                </div>
+
+                <div class="col-md-5 text-center">
+                    <div class="hero-icon" aria-hidden="true">🛍️</div>
+                    <div class="fw-bold">Your Opinion Matters 💚</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM AND INFORMATION -->
+    <section class="contact-main">
+        <div class="container">
+
+            <div class="row g-4">
+
+                <!-- FORM: existing Django backend -->
+                <div class="col-lg-5">
+                    <div class="contact-card">
+
+                        <h2 class="contact-heading">
+                            Send Us a <span>Message</span>
+                        </h2>
+
+                        <p class="text-secondary small mb-4">
+                            Fill in the details below and contact our team.
+                        </p>
+
+                        <form method="post" id="contactForm">
+                            {% csrf_token %}
+
+                            {% if S %}
+                                <div class="alert alert-success success-message"
+                                     role="status">
+                                    <strong>✓ Thank you!</strong>
+                                    Your enquiry has been submitted successfully.
+                                </div>
+                            {% endif %}
+
+                            <label class="contact-label" for="contactName">
+                                Your Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                id="contactName"
+                                class="contact-field"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                maxlength="100"
+                                required
+                            >
+
+                            <label class="contact-label" for="contactMobile">
+                                Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                name="mobile"
+                                id="contactMobile"
+                                class="contact-field"
+                                placeholder="Enter your mobile number"
+                                autocomplete="tel"
+                                pattern="[0-9+\-\s]{10,16}"
+                                title="Enter a valid mobile number"
+                                required
+                            >
+
+                            <label class="contact-label" for="contactEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                id="contactEmail"
+                                class="contact-field"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                                maxlength="254"
+                                required
+                            >
+
+                            <label class="contact-label" for="contactMessage">
+                                Your Message
+                            </label>
+
+                            <textarea
+                                name="msg"
+                                id="contactMessage"
+                                class="contact-field contact-message"
+                                placeholder="How can we help you?"
+                                maxlength="2000"
+                                required
+                            ></textarea>
+
+                            <button type="submit" class="send-btn"
+                                    id="sendButton">
+                                <i class="fa fa-paper-plane me-2"></i>
+                                Send Message
+                            </button>
+
+                            <p class="small text-secondary mt-3 mb-0">
+                                <i class="fa fa-lock me-1"></i>
+                                Please do not include passwords or payment details.
+                            </p>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- CONTACT INFORMATION -->
+                <div class="col-lg-7">
+                    <div class="contact-card contact-info-card">
+
+                        <h2 class="contact-heading">
+                            Contact <span>Information</span>
+                        </h2>
+
+                        <div class="heading-line"></div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+
+                            <div>
+                                <h5>Office Address</h5>
+                                <p>
+                                    Welcome to Supermarket India<br>
+                                    Basti Road to Mahson<br>
+                                    District Basti, Uttar Pradesh<br>
+                                    PIN Code: 272124
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <h5>Call Us</h5>
+                                <p>
+                                    <a href="tel:+918881470447">
+                                        +91 8881470447
+                                    </a>
+                                    <br>
+                                    <a href="tel:+918052592041">
+                                        +91 8052592041
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-item mb-0">
+                            <div class="info-icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+
+                            <div>
+                                <h5>Email Us</h5>
+                                <p>
+                                    <a href="mailto:ritikkumarstigp@gmail.com">
+                                        ritikkumarstigp@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="rounded-4 p-3"
+                             style="background:#e6f7ed;">
+                            <strong class="text-success">
+                                💚 We're here to help!
+                            </strong>
+
+                            <p class="small text-secondary mb-0 mt-2">
+                                Send us your questions, suggestions, or
+                                feedback about your shopping experience.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CUSTOMER SUPPORT FEATURES -->
+            <div class="support-strip mt-4">
+                <div class="row">
+
+                    <div class="col-6 col-lg-3 support-item">
+                        <div class="support-icon">
+                            <i class="fa fa-comments"></i>
+                        </div>
+                        <strong>Quick Enquiries</strong>
+                        <small>Contact our team</small>
+                    </div>
+
+                    <div class="col-6 col-lg-3 support-item">
+                        <div class="support-icon">
+                            <i class="fa fa-shield"></i>
+                        </div>
+                        <strong>Privacy Matters</strong>
+                        <small>Protect your information</small>
+                    </div>
+
+                    <div class="col-6 col-lg-3 support-item">
+                        <div class="support-icon">
+                            <i class="fa fa-headphones"></i>
+                        </div>
+                        <strong>Customer Support</strong>
+                        <small>We're ready to help</small>
+                    </div>
+
+                    <div class="col-6 col-lg-3 support-item">
+                        <div class="support-icon">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <strong>Customer First</strong>
+                        <small>Your feedback matters</small>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GOOGLE MAP -->
+            <div class="map-card">
+                <div class="map-title">
+                    <i class="fa fa-map-marker text-success me-2"></i>
+                    Find Us on the <span>Map</span>
+                    <div class="small text-secondary fw-normal mt-1">
+                        Gopalpur, Uttar Pradesh 272124
+                    </div>
+                </div>
+
+                <iframe
+                    src="https://www.google.com/maps?q=Gopalpur,+Uttar+Pradesh+272124&output=embed"
+                    title="Map showing Gopalpur, Uttar Pradesh 272124"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen
+                ></iframe>
+
+                <div class="p-3">
+                    <a
+                        href="https://www.google.com/maps/search/?api=1&query=Gopalpur%2C%20Uttar%20Pradesh%20272124"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-outline-success rounded-pill"
+                    >
+                        <i class="fa fa-location-arrow me-2"></i>
+                        Get Directions
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER MESSAGE -->
+    <footer class="contact-footer">
+        <div class="container">
+            <p>
+                💚 Thank you for being a part of Supermarket India.
+            </p>
+            <p class="small mt-2">
+                We look forward to hearing from you!
+            </p>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contactForm");
+    const button = document.getElementById("sendButton");
+
+    form.addEventListener("submit", function (event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            form.reportValidity();
+            return;
+        }
+
+        // Allow the normal Django POST to proceed.
+        // The browser will submit the form to your existing view.
+        button.disabled = true;
+        button.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2" ' +
+            'aria-hidden="true"></span>Sending...';
+    });
+});
+</script>
+
+{% endblock %}

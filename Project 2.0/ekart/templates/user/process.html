@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if alreadylogin %}
+<script>
+    window.close();
+</script>
+{% endif %}
+
+{% endblock %}

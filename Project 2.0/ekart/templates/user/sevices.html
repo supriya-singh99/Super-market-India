@@ -1,0 +1,377 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services | Supermarket India{% endblock %}
+
+{% block content %}
+
+<style>
+    .services-hero {
+        background: linear-gradient(120deg, #087f5b, #20a879);
+        color: white;
+        padding: 65px 20px;
+        text-align: center;
+        border-radius: 0 0 35px 35px;
+    }
+
+    .services-hero h1 {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 15px;
+    }
+
+    .services-hero p {
+        max-width: 650px;
+        margin: auto;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .services-section {
+        padding: 55px 0;
+        background: #f8faf9;
+    }
+
+    .section-title {
+        text-align: center;
+        font-weight: 800;
+        color: #174c38;
+        margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: #6b7280;
+        margin-bottom: 35px;
+    }
+
+    .service-card {
+        background: white;
+        height: 100%;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        transition: all 0.3s ease;
+        border: 1px solid #edf0ee;
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.13);
+    }
+
+    .service-card img {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+    }
+
+    .service-content {
+        padding: 24px;
+        text-align: center;
+    }
+
+    .service-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 58px;
+        height: 58px;
+        background: #e3f7ed;
+        color: #087f5b;
+        border-radius: 50%;
+        font-size: 25px;
+        margin-top: -53px;
+        position: relative;
+        border: 4px solid white;
+    }
+
+    .service-content h4 {
+        font-weight: 700;
+        color: #174c38;
+        margin: 15px 0 10px;
+    }
+
+    .service-content p {
+        color: #6b7280;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+    .service-benefits {
+        padding: 55px 20px;
+        background: white;
+    }
+
+    .benefit-item {
+        text-align: center;
+        padding: 20px 10px;
+    }
+
+    .benefit-item i {
+        font-size: 34px;
+        color: #0b9568;
+        margin-bottom: 14px;
+    }
+
+    .benefit-item h5 {
+        font-weight: 700;
+        color: #174c38;
+    }
+
+    .service-cta {
+        background: #e3f7ed;
+        text-align: center;
+        padding: 45px 20px;
+        border-radius: 22px;
+        margin: 45px auto;
+    }
+
+    .service-cta h2 {
+        font-weight: 800;
+        color: #174c38;
+        margin-bottom: 12px;
+    }
+
+    .service-btn {
+        background: #087f5b;
+        color: white;
+        border: none;
+        padding: 12px 27px;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 15px;
+        transition: 0.3s;
+    }
+
+    .service-btn:hover {
+        background: #065f46;
+        color: white;
+        transform: scale(1.04);
+    }
+
+    @media (max-width: 576px) {
+        .services-hero h1 {
+            font-size: 32px;
+        }
+
+        .services-hero {
+            padding: 45px 18px;
+        }
+
+        .service-card img {
+            height: 190px;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<section class="services-hero">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p>
+            Your daily shopping made simple! From fresh vegetables
+            to household essentials, we bring quality products
+            and convenient shopping right to your doorstep.
+        </p>
+        <a href="/products/" class="service-btn"
+           style="background:white;color:#087f5b;">
+            <i class="fa fa-shopping-basket"></i>
+            Explore Products
+        </a>
+    </div>
+</section>
+
+<!-- Main Services -->
+<section class="services-section">
+    <div class="container">
+        <h2 class="section-title">What We Offer</h2>
+        <p class="section-subtitle">
+            Everything you need for a better shopping experience.
+        </p>
+
+        <div class="row g-4">
+
+            <!-- Service 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&h=450&fit=crop"
+                        alt="Fresh grocery products">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-shopping-basket"></i>
+                        </div>
+                        <h4>Online Grocery Shopping</h4>
+                        <p>
+                            Shop for everyday groceries, packaged foods,
+                            kitchen essentials and more from the comfort
+                            of your home.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=700&h=450&fit=crop"
+                        alt="Fresh vegetables and salad">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-leaf"></i>
+                        </div>
+                        <h4>Fresh Fruits & Vegetables</h4>
+                        <p>
+                            Discover a variety of fresh fruits and
+                            vegetables for your daily meals and a
+                            healthier lifestyle.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=700&h=450&fit=crop"
+                        alt="Grocery delivery shopping">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <h4>Home Delivery</h4>
+                        <p>
+                            Place your grocery order online and enjoy
+                            convenient home delivery according to
+                            the delivery options available.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=700&h=450&fit=crop"
+                        alt="Payment card">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-credit-card"></i>
+                        </div>
+                        <h4>Easy Payment Options</h4>
+                        <p>
+                            Enjoy a convenient checkout experience.
+                            Available payment methods depend on the
+                            options configured in our store.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1607082349566-187342175e2f?w=700&h=450&fit=crop"
+                        alt="Shopping offers and discounts">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-tags"></i>
+                        </div>
+                        <h4>Special Offers</h4>
+                        <p>
+                            Explore available deals and discounts
+                            on selected products to get more value
+                            from your shopping.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&h=450&fit=crop"
+                        alt="Customer support team">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fa fa-headphones"></i>
+                        </div>
+                        <h4>Customer Support</h4>
+                        <p>
+                            Need help with an order or a product?
+                            Contact our support team through the
+                            contact options provided on our website.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="service-benefits">
+    <div class="container">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <p class="section-subtitle">
+            Designed to make everyday grocery shopping easier.
+        </p>
+
+        <div class="row g-3">
+            <div class="col-6 col-lg-3">
+                <div class="benefit-item">
+                    <i class="fa fa-check-circle"></i>
+                    <h5>Quality Choices</h5>
+                    <p>Products for everyday needs.</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="benefit-item">
+                    <i class="fa fa-clock-o"></i>
+                    <h5>Save Time</h5>
+                    <p>Shop whenever it suits you.</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="benefit-item">
+                    <i class="fa fa-mobile"></i>
+                    <h5>Easy to Use</h5>
+                    <p>A convenient online experience.</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="benefit-item">
+                    <i class="fa fa-heart"></i>
+                    <h5>Customer First</h5>
+                    <p>Your shopping experience matters.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="service-cta">
+            <h2>Ready to Start Shopping?</h2>
+            <p class="mb-0">
+                Explore our products and find what you need today.
+            </p>
+            <a href="/products/" class="service-btn">
+                Shop Now <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

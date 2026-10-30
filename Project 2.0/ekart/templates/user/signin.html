@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Sign In | Supermarket India{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:520px"><div class="card shadow-sm border-0"><div class="card-body p-4"><h2 class="text-center mb-4">Sign In</h2>{% for message in messages %}<div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>{% endfor %}<form method="post">{% csrf_token %}<label class="form-label">Email</label><input type="email" name="uname" class="form-control mb-3" required autocomplete="username"><label class="form-label">Password</label><input type="password" name="passwd" class="form-control mb-3" required autocomplete="current-password"><button class="btn btn-success w-100" type="submit">Login</button></form><p class="text-center mt-3 mb-0">New customer? <a href="/signup/">Create account</a></p></div></div></div>
+{% endblock %}

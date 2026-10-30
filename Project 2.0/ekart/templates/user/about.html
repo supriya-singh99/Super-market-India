@@ -1,0 +1,393 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | Supermarket India{% endblock %}
+
+{% block content %}
+
+<style>
+    .about-page {
+        color: #263238;
+        overflow: hidden;
+    }
+
+    .about-hero {
+        background: linear-gradient(135deg, #f0fff4, #ffffff);
+        padding: 65px 20px;
+    }
+
+    .about-label {
+        color: #198754;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 13px;
+    }
+
+    .about-title {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .about-title span {
+        color: #dc3545;
+    }
+
+    .about-description {
+        max-width: 720px;
+        margin: 18px auto 0;
+        color: #65716b;
+        line-height: 1.9;
+        font-size: 17px;
+    }
+
+    .about-image {
+        width: 100%;
+        height: 390px;
+        object-fit: cover;
+        border-radius: 22px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .about-content {
+        padding: 65px 0;
+    }
+
+    .about-content h2 {
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .about-content p {
+        color: #65716b;
+        line-height: 1.9;
+        font-size: 16px;
+    }
+
+    .feature-section {
+        background: #f7faf8;
+        padding: 65px 0;
+    }
+
+    .feature-card {
+        height: 100%;
+        padding: 28px 22px;
+        border: 1px solid #e8eee9;
+        border-radius: 16px;
+        background: white;
+        transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-icon {
+        width: 58px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e7f7ed;
+        border-radius: 15px;
+        font-size: 28px;
+        margin-bottom: 18px;
+    }
+
+    .feature-card h5 {
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .feature-card p {
+        color: #6c757d;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+    .objective-section {
+        padding: 65px 0;
+    }
+
+    .objective-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .objective-list li {
+        padding: 13px 0;
+        border-bottom: 1px solid #edf0ed;
+        line-height: 1.7;
+    }
+
+    .objective-list li span {
+        color: #198754;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .promise-section {
+        background: #198754;
+        color: white;
+        border-radius: 20px;
+        padding: 45px 25px;
+        text-align: center;
+        margin-bottom: 55px;
+    }
+
+    .promise-section p {
+        max-width: 650px;
+        margin: 15px auto 25px;
+        line-height: 1.8;
+    }
+
+    .shop-btn {
+        display: inline-block;
+        background: white;
+        color: #198754;
+        text-decoration: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+        font-weight: 700;
+        transition: 0.25s;
+    }
+
+    .shop-btn:hover {
+        background: #f0fff4;
+        color: #146c43;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 767px) {
+        .about-hero {
+            padding: 45px 15px;
+        }
+
+        .about-content,
+        .feature-section,
+        .objective-section {
+            padding: 42px 0;
+        }
+
+        .about-image {
+            height: 270px;
+            margin-bottom: 25px;
+        }
+    }
+</style>
+
+<div class="about-page">
+
+    <!-- ABOUT HERO -->
+    <section class="about-hero text-center">
+        <div class="container">
+            <div class="about-label">Welcome to Supermarket India</div>
+
+            <h1 class="about-title mt-3">
+                About Our <span>Company</span>
+            </h1>
+
+            <p class="about-description">
+                Your everyday shopping, made easier! Supermarket India
+                is designed to help you explore products, discover
+                everyday essentials, and enjoy a convenient online
+                shopping experience from the comfort of your home.
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT COMPANY -->
+    <section class="about-content">
+        <div class="container">
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-6">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=1000&amp;q=85"
+                        alt="Fresh vegetables and grocery products in a supermarket"
+                        class="about-image"
+                        loading="lazy"
+                    >
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="about-label">Who We Are</div>
+
+                    <h2 class="mt-2">
+                        Welcome to Supermarket India
+                    </h2>
+
+                    <p>
+                        Supermarket India is an online shopping project
+                        created to make everyday shopping simple,
+                        convenient, and accessible. Customers can browse
+                        available products and explore essential items
+                        through an easy-to-use website.
+                    </p>
+
+                    <p>
+                        Traditional shopping often requires extra time
+                        and effort. Our goal is to provide a user-friendly
+                        digital shopping platform where customers can
+                        discover products without visiting multiple
+                        physical stores.
+                    </p>
+
+                    <p>
+                        We aim to improve the shopping experience through
+                        clear product information, simple navigation,
+                        convenient product selection, and a customer-first
+                        approach.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW FEATURE SECTION -->
+    <section class="feature-section">
+        <div class="container">
+
+            <div class="text-center mb-5">
+                <div class="about-label">The Supermarket Advantage</div>
+                <h2 class="fw-bold mt-2">Why Choose Us?</h2>
+                <p class="text-secondary">
+                    A simpler way to explore your everyday essentials.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">🛒</div>
+                        <h5>Easy Shopping</h5>
+                        <p>
+                            Browse products and find your everyday
+                            essentials through a simple interface.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h5>Save Your Time</h5>
+                        <p>
+                            Explore products online without spending
+                            extra time visiting different stores.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">🥦</div>
+                        <h5>Everyday Essentials</h5>
+                        <p>
+                            Discover grocery items and other essential
+                            products in one convenient place.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h5>Mobile Friendly</h5>
+                        <p>
+                            Enjoy a responsive layout designed for
+                            desktops, tablets, and mobile devices.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OBJECTIVES -->
+    <section class="objective-section">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+
+                <div class="col-lg-5">
+                    <div class="about-label">Our Purpose</div>
+
+                    <h2 class="fw-bold mt-2">
+                        Our Objectives
+                    </h2>
+
+                    <p class="text-secondary">
+                        Our goal is to create a convenient, accessible,
+                        and user-friendly online shopping platform.
+                    </p>
+                </div>
+
+                <div class="col-lg-7">
+                    <ul class="objective-list">
+
+                        <li>
+                            <span>✓</span>
+                            Reduce the time and effort required for
+                            product discovery.
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Allow customers to explore products from home.
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Make product browsing and selection simple.
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Display clear product names, prices,
+                            and descriptions.
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Provide a responsive and easy-to-use interface.
+                        </li>
+
+                        <li>
+                            <span>✓</span>
+                            Build a foundation for future features such
+                            as order tracking and secure checkout.
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR PROMISE + CALL TO ACTION -->
+    <section class="container">
+        <div class="promise-section">
+            <h2 class="fw-bold">Shopping Made Simple!</h2>
+
+            <p>
+                We believe online shopping should be convenient,
+                straightforward, and enjoyable. Explore Supermarket India
+                and discover a simpler way to browse everyday products.
+            </p>
+
+            <a href="/" class="shop-btn">
+                Start Shopping &nbsp; →
+            </a>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

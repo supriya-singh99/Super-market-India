@@ -1,0 +1,50 @@
+SUPERMARKET INDIA - COLLEGE PROJECT
+===================================
+
+Implemented features
+--------------------
+1. Search products by product name or category from the header or catalogue.
+2. Product catalogue with category filtering and price sorting.
+3. Session-based cart: add items, update quantities, remove items and view totals.
+4. Checkout with Cash on Delivery, UPI Demo and Card Demo options.
+5. Clearly labelled simulated payment page with success/failure actions.
+   No real payment provider is connected and no money or sensitive credentials
+   are collected.
+6. Order confirmation page showing the purchased products and total.
+7. Order history with selected items, payment status and tracking timeline.
+8. Admin can update order status and tracking notes from Django Admin.
+9. Wishlist and optional stock management.
+
+Run on Windows
+--------------
+1. Open a terminal in the folder containing manage.py.
+2. Create and activate a virtual environment:
+      py -m venv venv
+      venv\\Scripts\\activate
+3. Install dependencies:
+      pip install -r requirements.txt
+4. Create/update database tables:
+      py manage.py migrate
+5. Create an administrator:
+      py manage.py createsuperuser
+6. Start the server:
+      py manage.py runserver
+7. Open http://127.0.0.1:8000/
+
+Admin URL: http://127.0.0.1:8000/admin/
+
+Before testing
+--------------
+- Add Categories and Products in Django Admin if the database is empty.
+- Set product prices and optional stock quantities in Admin.
+- Create a normal customer account and sign in to place an order.
+- Use the simulated payment success/failure buttons to demonstrate checkout.
+- Update order status and tracking note in Django Admin to demonstrate tracking.
+
+Important
+---------
+This is an educational project, not a production payment system. The demo
+payment page is intentionally labelled as a simulation and does not imitate
+or impersonate a real bank, wallet or payment provider. Never enter real card
+numbers, CVVs, UPI PINs or bank credentials. A real gateway requires merchant
+onboarding, server-side order creation, signature verification and webhooks.

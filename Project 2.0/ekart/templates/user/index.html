@@ -1,0 +1,524 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Supermarket India | Online Grocery Store{% endblock %}
+
+{% block content %}
+
+<style>
+    .slider img {
+        height: 450px;
+        object-fit: cover;
+        filter: brightness(75%);
+    }
+
+    .slider .carousel-caption {
+        bottom: 25%;
+    }
+
+    .slider .carousel-caption h2 {
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 800;
+    }
+
+    .shop-btn {
+        background: #ffc928;
+        color: #174c35;
+        border: none;
+        border-radius: 25px;
+        padding: 11px 25px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .shop-btn:hover {
+        background: #198754;
+        color: white;
+    }
+
+    .category {
+        background: #f5faf5;
+        padding: 25px 0;
+    }
+
+    .category-card {
+        height: 100%;
+        background: white;
+        border: 1px solid #e4ece4;
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+        transition: .3s;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 22px #00000015;
+    }
+
+    .category-card img {
+        height: 115px;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .newproduct {
+        background: #ffc928;
+        padding: 30px 15px;
+    }
+
+
+/* Product Card */
+.product-card {
+    height: 100%;
+    min-height: 380px;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px #00000020;
+}
+
+/* Product Image Fixed Size */
+.product-img {
+    width: 100% !important;
+    height: 160px !important;
+    max-height: 160px;
+    object-fit: contain !important;
+    display: block;
+    padding: 10px;
+    background: #f7faf7;
+    flex-shrink: 0;
+}
+
+/* Product Details */
+.product-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    min-height: 45px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.product-price {
+    color: #198754;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+    .product-card {
+        min-height: 350px;
+    }
+
+    .product-img {
+        width: 100% !important;
+        height: 130px !important;
+        max-height: 130px;
+        object-fit: contain !important;
+    }
+}
+
+    .offer {
+        background: linear-gradient(120deg, #064e3b, #198754);
+        color: white;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .offer img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .services {
+        background: #f5faf5;
+        padding: 40px 0;
+    }
+
+    .services img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 14px;
+    }
+
+    .service-item {
+        margin: 14px 0;
+        color: #315b40;
+    }
+
+    .service-item i {
+        color: #198754;
+        margin-right: 8px;
+    }
+
+    @media (max-width: 576px) {
+        .slider img {
+            height: 280px;
+        }
+
+        .slider .carousel-caption {
+            bottom: 8%;
+        }
+
+        .slider .carousel-caption p {
+            font-size: 12px;
+        }
+
+        .category-card img {
+            height: 85px;
+        }
+
+        .product-img {
+            height: 135px;
+        }
+    }
+</style>
+
+<!-- START SLIDER -->
+<div class="row slider">
+    <div class="col-sm-12">
+
+        <div id="carouselExampleCaptions"
+             class="carousel slide"
+             data-bs-ride="carousel">
+
+            <div class="carousel-indicators">
+                <button type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide-to="0"
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slide 1"></button>
+
+                <button type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+
+                <button type="button"
+                        data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=650&fit=crop"
+                        class="d-block w-100"
+                        alt="Fresh grocery vegetables">
+
+                    <div class="carousel-caption">
+                        <h2>Freshness Delivered Daily</h2>
+                        <p>Fresh groceries, everyday essentials and great prices.</p>
+                        <a href="/products/" class="shop-btn">Shop Now →</a>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img
+                        src="https://images.unsplash.com/photo-1543168256-418811576931?w=1600&h=650&fit=crop"
+                        class="d-block w-100"
+                        alt="Fresh fruits and grocery shopping">
+
+                    <div class="carousel-caption">
+                        <h2>Big Savings, Better Living</h2>
+                        <p>Discover products for your everyday needs.</p>
+                        <a href="/products/" class="shop-btn">Explore Products →</a>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=650&fit=crop"
+                        class="d-block w-100"
+                        alt="Online supermarket fresh produce">
+
+                    <div class="carousel-caption">
+                        <h2>Your Daily Needs, One Place</h2>
+                        <p>Convenient shopping for your entire family.</p>
+                        <a href="/products/" class="shop-btn">Start Shopping →</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"
+                      aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleCaptions"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon"
+                      aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+<!-- END SLIDER -->
+
+
+<!-- START CATEGORY -->
+<div class="row category">
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-10 my-4">
+        <h2 class="text-center fw-bold mb-2" style="color:#174c35">
+            Shop By Category
+        </h2>
+
+        <p class="text-center text-muted mb-4">
+            Find everything you need for your home.
+        </p>
+
+        <div class="row g-3">
+
+            {% if data %}
+                {% for x in data %}
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="category-card">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&h=250&fit=crop"
+                            alt="{{ x.cname }}"
+                            loading="lazy">
+
+                        <div class="fw-bold fs-6 mt-2">
+                            {{ x.cname }}
+                        </div>
+
+                        <a href="/products/"
+                           class="btn btn-sm btn-outline-success mt-2">
+                            Explore
+                        </a>
+
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+<!-- END CATEGORY -->
+
+
+<!-- START NEW PRODUCTS -->
+<div class="row newproduct">
+
+    <div class="col-12 text-center mb-4">
+        <h2 class="fw-bold text-white">
+            Our New <span style="color:#b42318">Products</span>
+            <i class="fa fa-shopping-cart"></i>
+        </h2>
+
+        <p class="text-white mb-0">
+            Quality products at prices you'll love.
+        </p>
+    </div>
+
+    {% if products %}
+        {% for x in products %}
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+
+            <div class="card product-card w-100">
+
+                {% if x.ppic %}
+                <img src="{{ x.ppic.url }}" class="product-img" alt="{{ x.name }}" loading="lazy">
+                {% else %}
+                <img src="https://placehold.co/400x350/f0f5f0/198754?text=Product" class="product-img" alt="{{ x.name }}" loading="lazy">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <small class="text-success fw-bold">
+                        {{ x.category }}
+                    </small>
+
+                    <h5 class="product-name mt-2">
+                        {{ x.name }}
+                    </h5>
+
+                    <div class="mb-2">
+                        <b>Rs.</b>
+                        <s class="text-danger">{{ x.tprice }}/</s>
+
+                        <span class="product-price">
+                            {{ x.disprice }}/
+                        </span>
+                    </div>
+
+                    <div
+                        style="height:15px;
+                               width:15px;
+                               border-radius:3px;
+                               background:{{ x.color }};
+                               margin-bottom:12px;">
+                    </div>
+
+                    <div class="d-flex gap-2">
+
+                        <a href="/user/viewdetails/?msg={{ x.id }}"
+                           class="btn btn-warning flex-grow-1">
+                            <b>Buy Now</b>
+                        </a>
+
+                        <a href="/user/process/?pid={{ x.id }}&amp;bn=cart"
+                           class="btn btn-success"
+                           title="Add to Cart"
+                           aria-label="Add {{ x.name }} to cart">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+</div>
+<!-- END NEW PRODUCTS -->
+
+
+<!-- SPECIAL OFFER SECTION -->
+<br>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-1"></div>
+
+        <div class="col-sm-10 offer p-4 my-3">
+            <div class="row align-items-center">
+
+                <div class="col-md-4 mb-3">
+                    <span class="text-warning fw-bold">SPECIAL OFFERS</span>
+
+                    <h2 class="fw-bold mt-2">
+                        More Value in Every Basket
+                    </h2>
+
+                    <p>
+                        Explore everyday essentials and discover
+                        great value for your family.
+                    </p>
+
+                    <a href="/products/" class="shop-btn">
+                        Shop Now →
+                    </a>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <img
+                        src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=450&fit=crop"
+                        alt="Fresh vegetables and groceries"
+                        loading="lazy">
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <div class="p-3">
+                        <i class="fa fa-tags fa-3x text-warning"></i>
+                        <h3 class="fw-bold mt-3">Great Deals</h3>
+                        <p>
+                            Find offers on selected products.
+                        </p>
+                        <a href="/products/" class="shop-btn">
+                            View Products
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-1"></div>
+    </div>
+</div>
+
+
+<!-- SERVICES SECTION -->
+<div class="row services">
+
+    <div class="col-md-1"></div>
+
+    <div class="col-md-5 px-4 px-md-5 py-3">
+
+        <h2 class="fw-bold" style="color:#174c35">
+            Why Shop With Us?
+        </h2>
+
+        <p class="text-muted">
+            Make grocery shopping simple with our online store.
+            Explore everyday essentials, compare prices and
+            conveniently place your orders.
+        </p>
+
+        <div class="service-item">
+            <i class="fa fa-check-circle"></i>
+            Wide selection of daily essentials
+        </div>
+
+        <div class="service-item">
+            <i class="fa fa-tag"></i>
+            Clear prices and special offers
+        </div>
+
+        <div class="service-item">
+            <i class="fa fa-shopping-cart"></i>
+            Convenient online ordering
+        </div>
+
+        <div class="service-item">
+            <i class="fa fa-shield"></i>
+            Secure account experience
+        </div>
+
+        <a href="/products/" class="shop-btn mt-3">
+            View All Products →
+        </a>
+
+    </div>
+
+    <div class="col-md-5 p-3">
+        <img
+            src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&h=600&fit=crop"
+            alt="Supermarket fresh produce"
+            loading="lazy">
+    </div>
+
+    <div class="col-md-1"></div>
+
+</div>
+
+{% endblock %}

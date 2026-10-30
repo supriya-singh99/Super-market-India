@@ -1,0 +1,701 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Explore Products | Supermarket India{% endblock %}
+
+{% block content %}
+
+<style>
+    .shop-page {
+        background: #f8faf8;
+        color: #24352b;
+        min-height: 100vh;
+        padding-bottom: 50px;
+    }
+
+    .shop-hero {
+        background: linear-gradient(120deg, #103c2b, #198754);
+        color: white;
+        padding: 42px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .shop-hero h1 {
+        font-size: clamp(28px, 4vw, 43px);
+        font-weight:bold;
+    }
+
+    .shop-hero p {
+        color: #e0f2e7;
+        margin-bottom: 22px;
+    }
+
+    .shop-search {
+        display: flex;
+        background: white;
+        border-radius: 12px;
+        padding: 6px;
+        max-width: 580px;
+        box-shadow: 0 8px 25px #0002;
+    }
+
+    .shop-search input {
+        border: none;
+        outline: none;
+        padding: 12px;
+        width: 100%;
+        min-width: 0;
+        border-radius: 10px;
+    }
+
+    .shop-search button {
+        border: none;
+        background: #ffc107;
+        border-radius: 9px;
+        padding: 0 20px;
+        font-weight: 700;
+    }
+
+    .shop-content {
+        padding-top: 30px;
+    }
+
+    .shop-sidebar,
+    .shop-toolbar {
+        background: white;
+        border: 1px solid #e8eee9;
+        border-radius: 15px;
+    }
+
+    .shop-sidebar {
+        padding: 20px;
+        position: sticky;
+        top: 15px;
+    }
+
+    .sidebar-heading {
+        font-size: 17px;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+
+    .category-link {
+        display: block;
+        text-decoration: none;
+        color: #506056;
+        padding: 11px 12px;
+        border-radius: 9px;
+        margin-bottom: 5px;
+        transition: 0.2s;
+    }
+
+    .category-link:hover,
+    .category-link.selected {
+        background: #e9f7ee;
+        color: #157347;
+        font-weight: 700;
+    }
+
+    .shop-toolbar {
+        padding: 15px 18px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .shop-toolbar select {
+        padding: 9px 12px;
+        border: 1px solid #dce5de;
+        border-radius: 8px;
+        background: white;
+        max-width: 100%;
+    }
+
+    .product-card {
+        height: 400px;
+        width: 200px;
+        background: white;
+        border: 1px solid #edf0ed;
+        border-radius: 15px;
+        overflow: hidden;
+        position: relative;
+        transition: transform .25s, box-shadow .25s;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px #173c2517;
+    }
+
+    .product-image-wrap {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+    .product-card:hover .product-image {
+        transform: scale(1.06);
+    }
+
+    .discount-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: #dc3545;
+        color: white;
+        font-size: 11px;
+        padding: 6px 9px;
+        border-radius: 6px;
+        font-weight: 800;
+    }
+
+    .wish-btn {
+        position: absolute;
+        right: 12px;
+        top: 10px;
+        width: 36px;
+        height: 36px;
+        background: white;
+        border: 1px solid #e8e8e8;
+        border-radius: 50%;
+        color: #dc3545;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .wish-btn.active {
+        background: #dc3545;
+        color: white;
+    }
+
+    .product-info {
+        padding: 16px;
+    }
+
+    .product-category {
+        color: #198754;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: .8px;
+    }
+
+    .product-name {
+        font-size: 16px;
+        font-weight: 750;
+        margin: 7px 0;
+        min-height: 42px;
+        overflow-wrap: anywhere;
+    }
+
+    .product-rating {
+        color: #e5a000;
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .product-rating small {
+        color: #7a857d;
+    }
+
+    .product-price {
+        font-size: 20px;
+        font-weight: 800;
+        color: #198754;
+    }
+
+    .old-price {
+        color: #909990;
+        font-size: 13px;
+        margin-left: 5px;
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 7px;
+        margin-top: 15px;
+    }
+
+    .product-actions a,
+    .product-actions button {
+        flex: 1;
+        font-size: 13px;
+        padding: 10px 5px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .view-btn {
+        background: #fff6d9;
+        color: #775500;
+        border: 1px solid #ffe49a;
+    }
+
+    .cart-btn {
+        background: #198754;
+        color: white;
+        border: 1px solid #198754;
+        cursor: pointer;
+    }
+
+    .cart-btn:hover {
+        background: #146c43;
+    }
+
+    .empty-state {
+        text-align: center;
+        background: white;
+        border-radius: 15px;
+        padding: 55px 20px;
+        border: 1px dashed #cbd8ce;
+    }
+
+    .empty-state .empty-icon {
+        font-size: 48px;
+    }
+
+    .benefit-strip {
+        margin-top: 35px;
+        padding: 22px;
+        background: white;
+        border: 1px solid #e8eee9;
+        border-radius: 15px;
+    }
+
+    .benefit-item {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .benefit-item strong {
+        display: block;
+        margin-top: 6px;
+    }
+
+    @media (max-width: 767px) {
+        .shop-hero {
+            padding: 32px 0;
+        }
+
+        .shop-sidebar {
+            position: static;
+            margin-bottom: 20px;
+        }
+
+        .product-image-wrap {
+            height: 165px;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 14px;
+        }
+
+        .product-price {
+            font-size: 17px;
+        }
+    }
+</style>
+
+<div class="shop-page">
+
+    <!-- HERO + SEARCH -->
+    <section class="shop-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge text-bg-warning mb-3">
+                        YOUR DAILY SHOPPING DESTINATION
+                    </span>
+
+                    <h1>Everything You Need,<br>All in One Place.</h1>
+
+                    <p>
+                        Discover daily essentials, explore new products
+                        and find your shopping favourites.
+                    </p>
+
+                    <form class="shop-search" id="productSearchForm" method="get" action="/products/">
+                        <input
+                            type="search"
+                            id="productSearch"
+                            name="q"
+                            value="{{ search_query|default:'' }}"
+                            placeholder="Search products, groceries, snacks..."
+                            aria-label="Search products"
+                        >
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                    <div style="font-size:100px; line-height:1.2;"
+                         aria-hidden="true">🛒</div>
+                    <div class="fw-bold">Fresh Finds. Smart Shopping.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="container shop-content">
+
+        <div class="d-flex justify-content-between align-items-center
+                    flex-wrap gap-2 mb-4">
+            <div>
+                <div class="text-success fw-bold small">EXPLORE OUR COLLECTION</div>
+                <h2 class="fw-bold mb-0">Shop Products</h2>
+            </div>
+
+            <div class="badge rounded-pill text-bg-success p-2">
+                <span id="productsCartCount">{{ global_cart_count|default:0 }}</span> Items in Cart · <a href="/cart/">View Cart</a> · <a href="/wishlist/">Wishlist</a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- SIDEBAR -->
+            <aside class="col-lg-3">
+                <div class="shop-sidebar">
+
+                    <div class="sidebar-heading">Browse Categories</div>
+
+                    <a href="/user/products/"
+                       class="category-link selected"
+                       data-category-link="all">
+                        🛍️ All Products
+                    </a>
+
+                    {% if cat %}
+                        {% for c in cat %}
+                            <a
+                                href="/user/products/?abc={{ c.id }}"
+                                class="category-link"
+                                data-category-link="{{ c.cname|lower }}"
+                            >
+                                🏷️ {{ c.cname }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+
+                    <hr>
+
+                    <div class="sidebar-heading">Shopping Tips</div>
+
+                    <p class="small text-secondary mb-2">
+                        ✓ Compare prices before buying.
+                    </p>
+
+                    <p class="small text-secondary mb-2">
+                        ✓ Check product details.
+                    </p>
+
+                    <p class="small text-secondary mb-0">
+                        ✓ Add your favourites to your wishlist.
+                    </p>
+                </div>
+            </aside>
+
+            <!-- PRODUCT GRID -->
+            <div class="col-lg-9">
+
+                <div class="shop-toolbar">
+                    <div class="small text-secondary">
+                        Showing <strong id="visibleCount">0</strong>
+                        products
+                    </div>
+
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                        <label for="sortProducts" class="small fw-bold">
+                            Sort:
+                        </label>
+
+                        <select id="sortProducts" aria-label="Sort products">
+                            <option value="default">Recommended</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3" id="productGrid">
+
+                    {% if products %}
+                        {% for x in products %}
+
+                            <div class="col-6 col-md-4 product-item"
+                                 data-name="{{ x.name|lower }}"
+                                 data-category="{{ x.category|lower }}"
+                                 data-price="{{ x.disprice|default:'0' }}"
+                                 data-id="{{ x.id }}">
+
+                                <div class="product-card">
+
+                                    <div class="product-image-wrap">
+
+                                        <span class="discount-badge">
+                                            SPECIAL PICK
+                                        </span>
+
+                                        <form method="post" action="/wishlist/" class="position-absolute" style="right:12px;top:10px;z-index:2">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ x.id }}">
+                                            <input type="hidden" name="next" value="/products/">
+                                            <button type="submit" class="wish-btn" aria-label="Save {{ x.name }} to wishlist" title="Save to wishlist">♡</button>
+                                        </form>
+
+                                        {% if x.ppic %}
+                                            <img
+                                                src="{{ x.ppic.url }}"
+                                                class="product-image"
+                                                alt="{{ x.name }}"
+                                                loading="lazy"
+                                                onerror="this.onerror=null;this.src='https://placehold.co/400x300/f0f5f0/198754?text=Product+Image';"
+                                            >
+                                        {% else %}
+                                            <img
+                                                src="https://placehold.co/400x300/f0f5f0/198754?text=Product"
+                                                class="product-image"
+                                                alt="{{ x.name }}"
+                                                loading="lazy"
+                                            >
+                                        {% endif %}
+
+                                    </div>
+
+                                    <div class="product-info">
+
+                                        <div class="product-category">
+                                            {{ x.category }}
+                                        </div>
+
+                                        <h3 class="product-name">
+                                            {{ x.name }}
+                                        </h3>
+
+                                        <div class="product-rating">
+                                            ★★★★★
+                                            <small>Product pick</small>
+                                        </div>
+
+                                        <div>
+                                            <span class="product-price">
+                                                ₹{{ x.disprice }}
+                                            </span>
+
+                                            {% if x.tprice %}
+                                                <span class="old-price">
+                                                    <s>₹{{ x.tprice }}</s>
+                                                </span>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="product-actions">
+
+                                            <a
+                                                href="/user/viewdetails/?msg={{ x.id }}"
+                                                class="view-btn"
+                                            >
+                                                View Details
+                                            </a>
+
+                                            <a href="/user/process/?pid={{ x.id }}&amp;bn=cart" class="cart-btn add-cart">+ Cart</a>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+
+                <!-- EMPTY SEARCH STATE -->
+                <div class="empty-state mt-3 d-none" id="emptyState">
+                    <div class="empty-icon">🔎</div>
+                    <h4 class="fw-bold mt-3">No products found</h4>
+                    <p class="text-secondary">
+                        Try another product name or clear your search.
+                    </p>
+                    <button type="button" class="btn btn-success"
+                            id="clearSearch">
+                        Show All Products
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- BENEFITS -->
+        <div class="benefit-strip">
+            <div class="row">
+                <div class="col-6 col-lg-3 benefit-item">
+                    <div style="font-size:27px;">🛒</div>
+                    <strong>Easy Browsing</strong>
+                    <small class="text-secondary">Simple product discovery</small>
+                </div>
+
+                <div class="col-6 col-lg-3 benefit-item">
+                    <div style="font-size:27px;">💚</div>
+                    <strong>Your Favourites</strong>
+                    <small class="text-secondary">Save products you like</small>
+                </div>
+
+                <div class="col-6 col-lg-3 benefit-item">
+                    <div style="font-size:27px;">📱</div>
+                    <strong>Responsive Design</strong>
+                    <small class="text-secondary">Shop on any screen</small>
+                </div>
+
+                <div class="col-6 col-lg-3 benefit-item">
+                    <div style="font-size:27px;">🔍</div>
+                    <strong>Quick Search</strong>
+                    <small class="text-secondary">Find products faster</small>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+{% endblock %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.getElementById("productGrid");
+    const searchInput = document.getElementById("productSearch");
+    const searchForm = document.getElementById("productSearchForm");
+    const sortSelect = document.getElementById("sortProducts");
+    const visibleCount = document.getElementById("visibleCount");
+    const emptyState = document.getElementById("emptyState");
+    const clearSearch = document.getElementById("clearSearch");
+    const cartCount = document.getElementById("productsCartCount");
+
+    const products = Array.from(
+        grid.querySelectorAll(".product-item")
+    );
+
+    let selectedCategory = "all";
+    let cart = [];
+    let wishlist = new Set();
+
+    function renderProducts() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        let visibleProducts = products.filter(function (product) {
+            const name = product.dataset.name || "";
+            const category = product.dataset.category || "";
+
+            const matchesSearch =
+                name.includes(query) || category.includes(query);
+
+            const matchesCategory =
+                selectedCategory === "all" ||
+                category === selectedCategory ||
+                category.includes(selectedCategory);
+
+            return matchesSearch && matchesCategory;
+        });
+
+        const sort = sortSelect.value;
+
+        if (sort === "price-low") {
+            visibleProducts.sort((a, b) =>
+                Number(a.dataset.price || 0) -
+                Number(b.dataset.price || 0)
+            );
+        } else if (sort === "price-high") {
+            visibleProducts.sort((a, b) =>
+                Number(b.dataset.price || 0) -
+                Number(a.dataset.price || 0)
+            );
+        } else if (sort === "name") {
+            visibleProducts.sort((a, b) =>
+                a.dataset.name.localeCompare(b.dataset.name)
+            );
+        }
+
+        products.forEach(function (product) {
+            product.classList.add("d-none");
+        });
+
+        visibleProducts.forEach(function (product) {
+            product.classList.remove("d-none");
+            grid.appendChild(product);
+        });
+
+        visibleCount.textContent = visibleProducts.length;
+        emptyState.classList.toggle(
+            "d-none",
+            visibleProducts.length !== 0
+        );
+    }
+
+    searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        renderProducts();
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+    sortSelect.addEventListener("change", renderProducts);
+
+    document.querySelectorAll("[data-category-link]").forEach(
+        function (link) {
+            link.addEventListener("click", function (event) {
+                const category = link.dataset.categoryLink;
+
+                if (category === "all") {
+                    event.preventDefault();
+                    selectedCategory = "all";
+                    searchInput.value = "";
+
+                    document.querySelectorAll("[data-category-link]")
+                        .forEach(item => item.classList.remove("selected"));
+
+                    link.classList.add("selected");
+                    renderProducts();
+                }
+                // Other category links use the existing Django URL.
+            });
+        }
+    );
+
+    if (clearSearch) clearSearch.addEventListener("click", function () {
+        selectedCategory = "all";
+        searchInput.value = "";
+        sortSelect.value = "default";
+
+        document.querySelectorAll("[data-category-link]")
+            .forEach(item => item.classList.remove("selected"));
+
+        document.querySelector('[data-category-link="all"]')
+            .classList.add("selected");
+
+        renderProducts();
+    });
+
+    renderProducts();
+});
+</script>
